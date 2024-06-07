@@ -1,3 +1,5 @@
+# Chip Component Project
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -34,3 +36,75 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## ChipAutoComplete Component
+
+The `ChipAutoComplete` component allows users to add and remove chips with auto-complete suggestions.
+
+### Setup
+
+1. **Install dependencies**:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+2. **Run the development server**:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+3. **Open the app**:
+   Open [http://localhost:3000](http://localhost:3000) with your browser.
+
+### Usage
+
+The `ChipAutoComplete` component is located in `components/ChipAutoComplete.jsx`. It is used in the `app/page.js` file.
+
+```javascript:app/page.js
+import ChipAutoComplete from "@/components/ChipAutoComplete";
+
+export default function Home() {
+  return (
+    <div className="flex bg-white py-60 justify-center min-h-screen">
+      <ChipAutoComplete />
+    </div>
+  );
+}
+```
+
+### Component Details
+
+The `ChipAutoComplete` component uses the following dependencies:
+```json:package.json
+"dependencies": {
+  "framer-motion": "^11.2.10",
+  "next": "14.2.3",
+  "react": "^18",
+  "react-dom": "^18",
+  "react-icons": "^5.2.1"
+}
+```
+
+### Tailwind CSS
+
+The project uses Tailwind CSS for styling. The configuration is in `tailwind.config.js` and `app/globals.css`.
+
+```css:app/globals.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+### ESLint
+
+The project uses ESLint for linting. The configuration is in `.eslintrc.json`.
+
+```json:.eslintrc.json
+{
+  "extends": "next/core-web-vitals"
+}
+```
