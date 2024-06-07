@@ -2,7 +2,7 @@ import ChipAutoComplete from "@/components/ChipAutoComplete";
 
 export default function Home() {
   return (
-    <div className="flex bg-white py-60 justify-center min-h-screen">
+    <div className="flex min-h-screen justify-center bg-white py-60">
       <ChipAutoComplete />
     </div>
   );

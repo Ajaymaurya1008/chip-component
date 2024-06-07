@@ -47,8 +47,8 @@ const ChipAutoComplete = () => {
       chipData.data.filter(
         (item) =>
           item.toLowerCase().startsWith(e.target.value.toLowerCase()) &&
-          !chips.includes(item)
-      )
+          !chips.includes(item),
+      ),
     );
   };
 
@@ -76,16 +76,16 @@ const ChipAutoComplete = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="mx-auto w-full max-w-md">
       {/* div for chips and search input */}
       <div
-        className="flex flex-wrap items-center gap-2 px-3 py-2 border border-gray-400 rounded-lg"
+        className="flex flex-wrap items-center gap-2 rounded-lg border border-gray-400 px-3 py-2"
         onClick={() => inputRef.current.focus()}
       >
         {chips.map((chip, index) => (
           <div
             key={index}
-            className="flex items-center bg-gray-200 px-2 py-1 rounded-md"
+            className="flex items-center rounded-md bg-gray-200 px-2 py-1"
           >
             {chip}
             <span
@@ -98,7 +98,7 @@ const ChipAutoComplete = () => {
         ))}
         <input
           ref={inputRef}
-          className="flex-grow px-2 py-1 border-none focus:outline-none"
+          className="flex-grow border-none px-2 py-1 focus:outline-none"
           type="text"
           value={inputValue}
           onChange={handleInputChange}
@@ -108,16 +108,16 @@ const ChipAutoComplete = () => {
       </div>
       {/* List of suggestions */}
       {inputValue && suggestions.length > 0 && (
-        <ul className="mt-2 border border-gray-400 rounded-lg bg-white max-h-40 overflow-y-auto">
+        <ul className="mt-2 max-h-40 overflow-y-auto rounded-lg border border-gray-400 bg-white">
           {suggestions.map((suggestion, index) => (
             <li
               key={index}
-              className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+              className="cursor-pointer px-4 py-2 hover:bg-gray-100"
               onClick={() => {
                 setChips([...chips, suggestion]);
                 setInputValue("");
                 setSuggestions(
-                  chipData.data.filter((item) => !chips.includes(item))
+                  chipData.data.filter((item) => !chips.includes(item)),
                 );
                 inputRef.current.focus();
               }}
