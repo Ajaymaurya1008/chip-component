@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { MdCancel } from "react-icons/md";
 
 // data used for filtering
 const chipData = {
@@ -42,41 +42,68 @@ const ChipAutoComplete = () => {
   // handles the change in suggestion array whenever a change happens in input value
   // checks if there a word that starts with the input value and not present in the chips array
   const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-    setSuggestions(
-      chipData.data.filter(
-        (item) =>
-          item.toLowerCase().startsWith(e.target.value.toLowerCase()) &&
-          !chips.includes(item),
-      ),
-    );
+    try {
+      setInputValue(e.target.value);
+      setSuggestions(
+        chipData.data.filter(
+          (item) =>
+            item.toLowerCase().startsWith(e.target.value.toLowerCase()) &&
+            !chips.includes(item),
+        ),
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // This functions handles the enter and backspace changes
   // on Clicking Enter the first word in the suggestion array is added to chip array
   // on Clicking backspace, the last word is removed from the chip array
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && suggestions.length > 0) {
-      const firstSuggestion = suggestions[0];
-      if (!chips.includes(firstSuggestion)) {
-        setChips([...chips, firstSuggestion]);
-        setInputValue("");
-        inputRef.current.focus();
-        setSuggestions(chipData.data.filter((item) => !chips.includes(item)));
+    try {
+      if (e.key === "Enter" && suggestions.length > 0) {
+        const firstSuggestion = suggestions[0];
+        if (!chips.includes(firstSuggestion)) {
+          setChips([...chips, firstSuggestion]);
+          setInputValue("");
+          inputRef.current.focus();
+          setSuggestions(chipData.data.filter((item) => !chips.includes(item)));
+        }
+      } else if (
+        e.key === "Backspace" &&
+        inputValue === "" &&
+        chips.length > 0
+      ) {
+        setChips(chips.slice(0, -1));
       }
-    } else if (e.key === "Backspace" && inputValue === "" && chips.length > 0) {
-      setChips(chips.slice(0, -1));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    try {
+      setChips([...chips, suggestion]);
+      setInputValue("");
+      setSuggestions(chipData.data.filter((item) => !chips.includes(item)));
+      inputRef.current.focus();
+    } catch (error) {
+      console.log(error);
     }
   };
 
   // For removal of words deleted by the user
   const removeChip = (chip) => {
-    setChips(chips.filter((c) => c !== chip));
-    setSuggestions([...suggestions, chip]);
+    try {
+      setChips(chips.filter((c) => c !== chip));
+      setSuggestions([...suggestions, chip]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <div className="mx-auto w-full max-w-md">
+    <div className="mx-4 md:mx-auto w-full max-w-md">
       {/* div for chips and search input */}
       <div
         className="flex flex-wrap items-center gap-2 rounded-lg border border-gray-400 px-3 py-2"
@@ -92,7 +119,7 @@ const ChipAutoComplete = () => {
               className="ml-2 cursor-pointer"
               onClick={() => removeChip(chip)}
             >
-              &times;
+              <MdCancel />
             </span>
           </div>
         ))}
@@ -113,14 +140,7 @@ const ChipAutoComplete = () => {
             <li
               key={index}
               className="cursor-pointer px-4 py-2 hover:bg-gray-100"
-              onClick={() => {
-                setChips([...chips, suggestion]);
-                setInputValue("");
-                setSuggestions(
-                  chipData.data.filter((item) => !chips.includes(item)),
-                );
-                inputRef.current.focus();
-              }}
+              onClick={() => handleSuggestionClick(suggestion)}
             >
               {suggestion}
             </li>
